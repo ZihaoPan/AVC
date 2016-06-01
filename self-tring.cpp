@@ -23,3 +23,80 @@ extern "C" void set_pixel(int col, int row, char red,char green,char blue);
 extern "C" int open_screen_stream();
 extern "C" int close_screen_stream();
 extern "C" int update_screen();
+
+
+int main(){
+  while(1){
+    take_picture();
+    int pixelval = 0;
+    int num = 0;
+    int error=0;
+    int s;
+    
+    int leftpix=0;
+    int centerpix=0;
+    int rightpix=0;
+    int forwardpix=0;
+    
+    int numC=0;
+    int numL=0;
+    
+    for(int x = 145; x <155 ; x++){        //Center pixels 155-165
+      pixelval = get_pixel(x,120,3);
+      if(pixelval > 80){
+       // pixel white
+       numC = 1;
+      }else{
+       //pixel black
+       numC = 0;
+      }
+      centerpix = centerpix + numC;
+    }
+    
+    for(int i=0;i<240;i++){
+      pixelval = get_pixel(50,i,3);
+      if(pixelval > 80){
+          // pixel white
+          numL = 1;
+      }else{
+          //pixel black
+          numL = 0;
+      }
+      leftpix = leftpix + numL;
+    }
+    
+    for(int i=0;i<240;i++){
+      pixelval = get_pixel(320,i,3);
+      if(pixelval > 80){
+          // pixel white
+          numR = 1;
+      }else{
+          //pixel black
+          numR = 0;
+      }
+      rightpix = rightpix + numR;
+    }
+    
+    for(int x = 0; x <120 ; x++){        //Going Downn camera Y
+      pixelval = get_pixel(160,x,3);      //To check if there is a line ahead
+      if(pixelval > 80){
+        // pixel white
+        numF = 1;
+      }else{
+        //pixel black
+        numF = 0;
+      }
+    forwardpix = forwardpix + numF;
+    }
+    
+    
+    printf("num=%d\n", num);
+    printf("center=%d\n", centerpix);
+    printf("error=%d\n",error);
+    printf("forward=%d\n",forwardpix);
+    printf("Left=%d\n",lefttpix);
+    printf("Right=%d\n",rightpix);
+    
+    
+  }
+}
