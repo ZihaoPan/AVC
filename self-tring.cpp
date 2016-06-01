@@ -40,11 +40,37 @@ int main(){
     
     int numC=0;
     int numL=0;
+    int Fmax;
+    int Fmin;
+    int Cmax;
+    int Cmin;
     
-    for(int x = 145; x <155 ; x++){        //Center pixels 155-165
+    for(int x = 0; x < 320; x++){        //scan top
+      pixelval = get_pixel(x,160,3);
+      if(pixelval > 80){
+        // pixel white
+        if(x>Fmax){
+          Fmax=x;
+         }else if(x<Fmin){
+          Fmin=x;
+         }
+        numF = 1;
+      }else{
+        //pixel black
+        numF = 0;
+      }
+    forwardpix = forwardpix + numF;
+    }
+    
+    for(int x = 0; x <320 ; x++){        //scan center
       pixelval = get_pixel(x,120,3);
       if(pixelval > 80){
        // pixel white
+       if(x>Cmax){
+          Cmax=x;
+        }else if(x<Cmin){
+          Cmin=x;
+        }
        numC = 1;
       }else{
        //pixel black
@@ -52,6 +78,8 @@ int main(){
       }
       centerpix = centerpix + numC;
     }
+    
+    
     
     for(int i=0;i<240;i++){
       pixelval = get_pixel(50,i,3);
@@ -77,17 +105,7 @@ int main(){
       rightpix = rightpix + numR;
     }
     
-    for(int x = 0; x <120 ; x++){        //Going Downn camera Y
-      pixelval = get_pixel(160,x,3);      //To check if there is a line ahead
-      if(pixelval > 80){
-        // pixel white
-        numF = 1;
-      }else{
-        //pixel black
-        numF = 0;
-      }
-    forwardpix = forwardpix + numF;
-    }
+    
     
     
     printf("num=%d\n", num);
@@ -96,6 +114,27 @@ int main(){
     printf("forward=%d\n",forwardpix);
     printf("Left=%d\n",lefttpix);
     printf("Right=%d\n",rightpix);
+    
+    if(forwardpix>0){
+      printf("ForwardFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\n");
+      int Fmean=(Fmax-Fmin)/2+Fmin;
+      int Cmean=(Cmax-Cmin)/2+Cmin;
+      error=40/(Fmean-Cmean);
+      int v1 = -90 + 0.8*error;
+      int v2 = -90 - 0.8*error;
+      printf("v1 = %d v2 = %d\n",v1,v2);
+      set_motor(1,v1);
+      set_motor(2,v2);
+      Sleep(0,500000);
+    }else{
+      // no white pixels at all
+      printf("Backing\n");
+      set_motor(1,90);
+      set_motor(2,90);
+      Sleep(0,500000);
+    }
+    
+    
     
     
   }
