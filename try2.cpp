@@ -26,7 +26,7 @@ extern "C" int update_screen();
 
 
 int main(){
- int(1);
+ init(1);
   while(1){
     take_picture();
     int pixelval = 0;
@@ -41,6 +41,8 @@ int main(){
     
     int numC=0;
     int numL=0;
+    int numR=0;
+    int numF=0;
     int Fmax;
     int Fmin;
     int Cmax;
@@ -80,8 +82,8 @@ int main(){
       centerpix = centerpix + numC;
     }
     
-    for(int i=0;i<240;i++){
-      pixelval = get_pixel(50,i,3);
+    for(int i=10;i<30;i++){             //scan left
+      pixelval = get_pixel(i,120,3);
       if(pixelval > 80){
           // pixel white
           numL = 1;
@@ -92,8 +94,8 @@ int main(){
       leftpix = leftpix + numL;
     }
     
-    for(int i=0;i<240;i++){
-      pixelval = get_pixel(320,i,3);
+    for(int i=290;i<310;i++){             //scan right
+      pixelval = get_pixel(i,120,3);
       if(pixelval > 80){
           // pixel white
           numR = 1;
