@@ -79,8 +79,6 @@ int main(){
       centerpix = centerpix + numC;
     }
     
-    
-    
     for(int i=0;i<240;i++){
       pixelval = get_pixel(50,i,3);
       if(pixelval > 80){
@@ -104,9 +102,6 @@ int main(){
       }
       rightpix = rightpix + numR;
     }
-    
-    
-    
     
     printf("num=%d\n", num);
     printf("center=%d\n", centerpix);
