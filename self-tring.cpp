@@ -26,6 +26,7 @@ extern "C" int update_screen();
 
 
 int main(){
+  init(1);
   while(1){
     take_picture();
     int pixelval = 0;
