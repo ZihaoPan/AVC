@@ -134,8 +134,13 @@ int main(){
       Sleep(0,500000);
     }
     
+    if(forwardpix<5 && leftpix>10 && rightpix>10 && centerpix>10){
+      printf("TInter===================================\n");
+      set_motor(1,100);
+      set_motor(2,-100);
+      Sleep(1,0);
+    }
     
-    
-    
+    printf("////////////////// \n");
   }
-}
+return 0;}
